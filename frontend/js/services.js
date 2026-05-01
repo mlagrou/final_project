@@ -63,12 +63,14 @@ function renderservices(services) {
     container.textContent = 'No services yet. Add one above!'
     return
   }
+  
+  const ul = document.createElement('ul')
+
 
   // Loop through each service and create HTML elements for it
   services.forEach(service => {
-    const div = document.createElement('div')
-    div.innerHTML =
-                  `<li>
+    const li = document.createElement('li')
+    li.innerHTML =` 
                       <h3>${service.serviceName}</h3> 
                       <strong>    ID:  </strong>   ${service._id}                    
                       <br><strong>    Active: </strong>${service.isActive}
@@ -76,10 +78,11 @@ function renderservices(services) {
                       <br><strong>    Annual: </strong>$${service.annualPrice}
                       <br><strong>    Features: </strong>${service.features}
                       <br><strong>    Added by: </strong>${service.addedBy}
-                  </li>`
+                  `
     
-    container.appendChild(div)
+    ul.appendChild(li)
   })
+    container.appendChild(ul)
 }
 
 // ===== CREATE A service =====
