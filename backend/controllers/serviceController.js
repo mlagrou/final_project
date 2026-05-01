@@ -58,11 +58,11 @@ const updateservice =  asyncHandler(async(req, res) => {
     // if we need to update any service - we need an id
     // Look up the service by the id from the URL parameter (e.g., /api/services/abc123) 
     //  we first check if it exists before trying to update
-    const service = await service.findById(req.params.id) // this will find our service
+    const getService = await service.findById(req.params.id) // this will find our service
 
     // If no service was found with that id, send a 400 error 
     //  prevents updating a non-existent document
-    if(!service){
+    if(!getService){
         res.status(400)
         throw new Error("service not found")
     }
@@ -76,7 +76,7 @@ const updateservice =  asyncHandler(async(req, res) => {
     }
 
     // Only the services that belong to the user should be modified by that user.
-    if (service.user.toString() !== req.user.id) {
+    if (getService.user.toString() !== req.user.id) {
         res.status(401)
         throw new Error('User not authorized')
      }
@@ -106,11 +106,11 @@ const deleteservice = asyncHandler(async (req, res) => {
 
     // Find the service first 
     //  we need the document object to call .deleteOne() on it
-    const service = await service.findById(req.params.id) // this will find our service
+    const getService = await service.findById(req.params.id) // this will find our service
 
     // If the service doesn't exist, tell the client 
     //  prevents trying to delete something that's already gone
-    if(!service){
+    if(!getService){
         res.status(400)
         throw new Error("service not found")
     }
@@ -125,7 +125,7 @@ const deleteservice = asyncHandler(async (req, res) => {
     }
 
     // check if the service has the user field, because we are adding the user key in the database
-    if (service.user.toString() !== req.user.id) {
+    if (getService.user.toString() !== req.user.id) {
         res.status(401)
         throw new Error('User not authorized')
      }
@@ -134,7 +134,7 @@ const deleteservice = asyncHandler(async (req, res) => {
 
     // Remove the service from the database 
     //  .deleteOne() is called on the document instance we found above
-    await service.deleteOne()
+    await getService.deleteOne()
 
     // Send back a confirmation message with the deleted service's id 
     //  lets the client know which service was removed
