@@ -111,7 +111,10 @@ document.getElementById('addService').addEventListener('click', async (e) => {
   // Show success message, clear the input, and refresh the services list
   document.getElementById('message').style.color = 'green'
   document.getElementById('message').textContent = 'service created!'
-  document.getElementById('serviceText').value = ''
+  document.getElementById('serviceName').value = ''
+  document.getElementById('monthlyPrice').value = '';
+  document.getElementById('annualPrice').value = '';
+  document.getElementById('featuresInput').value = '';
   getservices()
 })
 
@@ -186,6 +189,30 @@ document.getElementById('updateBtn').addEventListener('click', () => {
                 document.getElementById('updateMessage').textContent = 'Error updating service.';
             });
         });
+
+          document.getElementById('deleteBtn').addEventListener('click', () => {
+            const id = document.getElementById('deleteId').value;
+            if (!id) {
+                document.getElementById('deleteMessage').textContent = 'Service ID is required.';
+                return;
+            }
+
+            fetch(`${API_URL}/services/${id}`, {
+                method: 'DELETE',
+                headers: authHeader()
+            })
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('deleteMessage').textContent = 'Service deleted!';
+                document.getElementById('deleteId').value = '';
+                //add to refresh on delte
+                getservices()
+            })
+            .catch(err => {
+                document.getElementById('deleteMessage').textContent = 'Error deleting service.';
+            });
+        });
+
 
 
 // ===== LOAD serviceS ON PAGE LOAD =====
