@@ -18,9 +18,9 @@ const setservice = asyncHandler(async(req, res) => {
 
     //add my things
     const { serviceName, monthlyPrice, annualPrice, features, isActive } = req.body
-    // Validate that the request body contains a 'text' field 
+    // Validate that the request body contains a 'SERVICE' field 
     //  without this check, we'd save empty/useless services to the database
-    if(!name){
+    if(!serviceName){
         // Set status to 400 (Bad Request) 
         //  tells the client they sent invalid data
         res.status(400)
@@ -41,7 +41,6 @@ const setservice = asyncHandler(async(req, res) => {
             features,
             isActive,
             addedBy: req.user.username,
-            text: req.body.text,
             user: req.user.id // adding which user created the service
             
         }
@@ -89,9 +88,13 @@ const updateservice =  asyncHandler(async(req, res) => {
     // Find the service by id and update its text field in one operation
     const updatedservice = await service.findByIdAndUpdate(
         req.params.id,          // which service to update
-        {text: req.body.text},  // the new data to apply
-        {new: true}             // return the updated document instead of the old one 
-        //  without this, Mongoose returns the document as it was BEFORE the update
+        {   serviceName: req.body.serviceName, 
+            monthlyPrice: req.body.monthlyPrice, 
+            annualPrice: req.body.annualPrice, 
+            features: req.body.features, 
+            isActive: req.body.isActive, 
+        }, 
+        {new: true}
     )
 
     // Send back the updated service so the client can see the changes took effect
