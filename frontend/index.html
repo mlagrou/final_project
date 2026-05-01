@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+        <style>
+          :root{
+              --white: #ffffff; 
+              --lightgrey: #d1d1d1ea;
+              --darkgrey: #282b30;
+              --blackish: #1c1e22;
+              --lightorange: #FA8072;
+              --darkorange: #FA8072;
+              --accent-cool:	#407076;
+              
+
+          }
+
+
+          #fetchBtn{
+              width: 30%;
+          }
+
+
+
+          body {
+              font-family: "Inter Tight", "Segoe UI", Helvetica, Arial, sans-serif;
+          }
+
+
+          h1{
+              font-family: "Inter Tight", Helvetica, sans-serif;
+              font-size: 2.25vw;
+              text-justify: center;
+
+          }
+
+          h2{
+              font-family: "Inter Tight", Helvetica, sans-serif;
+              font-size: 3.75vw;
+              margin: 0;
+              color: var(--blackish);
+          }
+
+          h3{
+              font-family: "Inter Tight", Helvetica, sans-serif;
+              font-size: 1.5vw;
+              margin: 0;
+              color: var(--accent-cool);
+          }
+
+
+          textarea, button, input,  label{
+              padding: 10px;
+              font-size: 14px;
+              margin: 5px;
+          }
+          
+          button{
+            margin: 20px;
+          }
+
+          #registerForm input {
+            width: 100%;
+            box-sizing: border-box;
+          }
+
+          form{
+            background-color: var(--lightgrey);
+            display: flex;
+            flex-direction: column;
+            width: 400px;
+            padding: 20px;
+          }
+          label{
+              font-family: "Inter Tight", Helvetica, sans-serif;
+              font-size: 1.5vw;
+              margin: 0;
+              color: var(--accent-cool)
+          }
+
+
+    </style>
+</head>
+<body>
+  <h1>Login</h1>
+
+  <form id="loginForm">
+    <div>
+      <label>Username:</label><br>
+      <input type="text" id="username" required>
+    </div>
+    <br>
+    <div>
+      <label>Password:</label><br>
+      <input type="password" id="password" required>
+    </div>
+    <br>
+    <button type="submit">Login</button>
+  </form>
+
+  <p id="errorMsg" style="color:red;"></p>
+
+  <p>Don't have an account? <a href="register.html">Register here</a></p>
+
+  <script src="js/auth.js"></script>
+</body>
+</html>
