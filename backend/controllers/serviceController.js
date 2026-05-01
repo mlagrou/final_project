@@ -4,11 +4,11 @@ const asyncHandler = require('express-async-handler')
 const service = require('../model/serviceModel')
 const User = require('../model/userModel') // for update and delete
 
-// http://localhost:5555/api/services/
+//https://final-project-ogsv.onrender.com/api
 const getservices = asyncHandler(async (req, res) =>{
   
   
-    const services = await service.find({})
+    const services = await service.find({}).sort({createdAt: -1})
  
     res.status(200).json(services)
 })
@@ -16,15 +16,17 @@ const getservices = asyncHandler(async (req, res) =>{
 // ===== CREATE A service =====
 const setservice = asyncHandler(async(req, res) => {
 
+    //add my things
+    const { serviceName, monthlyPrice, annualPrice, features, isActive } = req.body
     // Validate that the request body contains a 'text' field 
     //  without this check, we'd save empty/useless services to the database
-    if(!req.body.text){
+    if(!name){
         // Set status to 400 (Bad Request) 
         //  tells the client they sent invalid data
         res.status(400)
         // Throw an error with a helpful message 
         //  asyncHandler catches this and passes it to our errorMiddleware
-        throw new  Error("Please add a 'text' field. ")
+        throw new  Error("Please etner a service. ")
     }
 
 
@@ -32,7 +34,13 @@ const setservice = asyncHandler(async(req, res) => {
     //  .create() both builds and saves the document in one step
     const service_created = await service.create(
         {
-            // Set the text field to whatever the client sent in the request body
+            // Set the text field to whatever the client sent in the request body CHECK
+            serviceName,
+            monthlyPrice,
+            annualPrice,
+            features,
+            isActive,
+            addedBy: req.user.username,
             text: req.body.text,
             user: req.user.id // adding which user created the service
             

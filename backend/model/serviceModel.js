@@ -18,12 +18,28 @@ const serviceSchema = mongoose.Schema(
     },
 
     // ---- service Content ----------------------------------------------
-    text: {
+    serviceName: {
       type: String,
-      required: [true, 'Please add a text value'], // Second element is a custom error message returned when validation fails
+      required: [true, 'Please add a service name'], // Second element is a custom error message returned when validation fails
     },
-  },
 
+      monthlyPrice: {
+      type: Number,
+    },
+    annualPrice: {
+      type: Number,
+    },
+    features: {
+      type: [String],
+    },
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
+    addedBy: {
+      type: String,
+    },
+    },
   // ---- Schema Options ----------------------------------------------
   {
     timestamps: true, // Automatically adds and manages `createdAt` and `updatedAt` fields on every document
